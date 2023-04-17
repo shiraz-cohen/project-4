@@ -12,7 +12,7 @@ export class KeyBoard extends Component {
         {this.state.hebrewLetters.map((v, i) => (
           <button
             key={`${i}-hebrew-keyboard`}
-            class="..."
+            className="..."
             onClick={() => this.context.addToCurrentTextItem(v)}
           >
             {v}
