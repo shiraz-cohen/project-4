@@ -117,6 +117,7 @@ export class KeyBoard extends Component {
               textAlign: "center",
               borderBottom: "5px solid red",
               fontSize: this.state.sizeText,
+              color: this.state.colorText,
             }}
           >
             {this.state.text}
