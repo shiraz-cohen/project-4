@@ -1,120 +1,128 @@
 import React, { Component } from 'react';
+import './player.css';
+//import StartGame from './startGame';
 
 class Player extends Component {
-    constructor(props){
-        super(props)
+  constructor(props){
+    super(props);
+        // הגדרת המצבים של השחקן בכל רגע נתון במשחק
         this.state = {
-            name:this.props.name ,
-            number: Math.floor(Math.random() * (99)),
-            active: true,
-            steps:0,
-            score:[]
-    
-    
-          }
-          this.changeNum = this.changeNum.bind(this);
-          
-    }
-   
-    
-
-     
-    render() { 
-        return (
-            <React.Fragment>
-                <button>התחל משחק</button>
-                <p>Gamer:{this.state.name}</p>
-                <p>Number:{this.state.number}</p>
-                <p>Steps:{this.state.steps}</p>
-                <p>Score:{this.state.score}</p>
-                
-        <button type="button" onClick={this.changeNum.bind(this, "+1")}>+1</button>
-        <button type="button" onClick={this.changeNum.bind(this, "-1")}>-1</button>
-        <button type="button" onClick={this.changeNum.bind(this, "*2")}>*2</button>
-        <button type="button" onClick={this.changeNum.bind(this, "/2")}>/2</button>
-
-
-               
-            </React.Fragment>
-        );
-    }
-    /*RandomNumber = () => {
-        return Math.floor(Math.random() * (99));
-      };*/
-    
-
-      changeNum = (s) => {
-        let temp=this.state.number;
-        let count=this.state.steps;
-        
-        
-        switch(s){
-            case "-1":
-                temp=temp-1;
-                break;
-        
-            case "+1": 
-                temp=temp+1;
-                break;
-            
-            case "*2": 
-                temp=temp*2;
-                break;
-            case "/2": 
-                temp=temp/2;
-                break;
-            default:
-                break;
-        }
-        temp=Math.floor(temp);
-
-
-        this.setState({number: temp});
-        let ste=this.setState({steps: count+1});
-        this.StepsToWin(temp,ste);
-      };
-
-      StepsToWin = (num,s) =>{
-        let count=this.state.steps;
-        if(num == 100) {
-            alert(`${this.state.name} are the winner`);
-            this.setState({score:this.state.score.push(s)});
-            
-
-        
+          pid: this.props.index,
+          number: this.getRandomNumber(),
+          steps: 0,
+          score: [],
+          message: "",
+          startGa: false,
+          finish: false,
+        };
       }
-    }
-
-      
-        
-    /*ActiveGame(){
-        const { active }= this.state.active;
-        return active===true?"your turn": "it's not your turn";
-    }*/
-
-
-
-     /*MyForm() {
-        const [name, setName] = useState("");
-      
-        const handleSubmit = (event) => {
-          event.preventDefault();
-          alert(`The name you entered was: ${name}`);
-        }
-      
+    
+      // פונקציה שמחזירה מספר רנדומלי בין 1 ל-99
+      getRandomNumber = () => {
+        return Math.floor(Math.random() * (99)) + 1;
+      };
+    
+      // פונקציה שמשמשת לטובת הצגת השחקן בדף המשחק
+      render() {
         return (
-          <form onSubmit={handleSubmit}>
-            <label>Enter your name:
-              <input 
-                type="text" 
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-              />
-            </label>
-            <input type="submit" />
-          </form>
-        )
-      }*/
+          <React.Fragment>
+            {/* הצגת ההודעות למשתמש */}
+            <p>{this.state.message}</p>
+    
+            {/* יצירת תיבת הקלף של השחקן */}
+            <div className='player'>
+              <p>שחקן: {this.props.name}</p>
+              <p>המספר שלי: {this.state.number}</p>
+              <p>צעדים: {this.state.steps}</p>
+              <p>ניקוד: {this.state.score.join(", ")}</p>
+              <p className='turn'>{this.state.pid === this.props.currentTurn && <span>תורך</span>}</p>
+    
+              {/* יצירת כפתורי המשחק */}
+              <button type="button" onClick={() => this.changeNum("+1")} disabled={this.state.number === 100}>+1</button>
+              <button type="button" onClick={() => this.changeNum("-1")} disabled={this.state.number === 100}>-1</button>
+              <button type="button" onClick={() => this.changeNum("*2")} disabled={this.state.number === 100}>*2</button>
+              <button type="button" onClick={() => this.changeNum("/2")} disabled={this.state.number === 100}>/2</button>
+    
+              {/* יצירת כפתור לצאת מהמשחק ולהתחיל משחק חדש */}
+              <div>{this.state.finish && <button className='finish' onClick={() => { this.fin() }}>צא מהמשחק</button>}</div>
+              <div>{this.state.startGa && <button className='startGa' onClick={() => { this.again() }}>התחל משחק חדש</button>}</div>
+            </div>
+          </React.Fragment>
+        );
+      }
+  again(){
+    this.setState({number: this.getRandomNumber()});
+    this.setState({steps: 0});
+    this.setState({finish: false});
+    this.setState({startGa: false});
+    this.setState({message: ""});
+     
+  }
+  fin=()=>{
+    this.props.finishG(this.state.pid);
+  }
+  
+  changeNum = (s) => {
+    if (this.state.pid !== this.props.currentTurn) {
+      alert("המתן לתורך");
+      return;
+    }
+    
+    let temp = this.state.number;
+    let count = this.state.steps;
+    
+
+    switch(s){
+      case "-1":
+        temp = temp - 1;
+        break;
+      case "+1":
+        temp = temp + 1;
+        break;
+      case "*2":
+        temp = temp * 2;
+        break;
+      case "/2":
+        temp = temp / 2;
+        break;
+      default:
+        break;
+    }
+    temp = Math.floor(temp);
+    this.setState({number: temp});
+    this.setState({steps: count+1});
+    this.checkForWin(temp, this.props.name);
+    this.props.goToNext();
+  };
+
+  checkForWin = (num, playerName) =>{
+    if(num === 100) {
+      this.setState({message:(`${playerName} כל הכבוד! ניצחת`)});
+      let s= [...this.state.score, this.state.steps+1];//המערך החדש של הניצחונות
+      let temp= s.length;// אורך המערך שווה למספר הניצחונות של השחקן
+      this.props.numOfWin(temp, this.props.name);//נקרא לפונקציה עם מס הניצחונות שלי שבודקת אם נכנסתי לשיאים
+      this.setState({score: s});
+      this.setState({finish: true});
+      this.setState({startGa: true});
+      
+      
+    }
+  };
 }
- 
-export default Player ;
+
+export default Player;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
