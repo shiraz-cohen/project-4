@@ -49,17 +49,17 @@ class StartGame extends Component {
     });
   }
 
-  goToNext() {
+  goToNext() {//פונקציה זו מעדכנת את התור הנוכחי לפי רשימת השחקנים הקיימים במשחק
     const next = (this.state.currentTurn + 1) % this.state.listPlayer.length;
     this.setState({ currentTurn: next });
   }
 
-  numOfWin(number, name) {
+  numOfWin(number, name) {// פונקציה זו מעדכנת את הטבלת השיאים עם ניצחונות חדשים עבור שחקן מסוים אם הם יותר גבוהים מהכיוון הקיים שלו בטבלה. אם השחקן לא נמצא בטבלה, הפונקציה תוסיף אותו כשחקן חדש ותמיין את הטבלה על פי מספר הניצחונות
     const { listScore } = this.state;
     let newScore = [...listScore];
     let addedPlayer = false;
   
-    // check if player already exists in listScore
+    // בודק אם השחקן כבר קיים ברשימת התוצאות
     newScore.forEach((player, index) => {
       if (player.nameW === name) {
         if (number > player.wins) {
@@ -69,21 +69,21 @@ class StartGame extends Component {
       }
     });
   
-    // if player not found, add to listScore
+    // אם השחקן לא נמצא תוסיף אותו לרשימה
     if (!addedPlayer) {
       newScore.push({ nameW: name, wins: number });
     }
   
-    // sort listScore by wins (highest to lowest)
+    // מיין את הרשימה  לפי מספר הניצחונות מהגבוה לנמוך
     newScore.sort((a, b) => b.wins - a.wins);
   
-    // update state with newScore
+    
     this.setState({ listScore: newScore.slice(0, 3) });
   }
   
  
 
-  finishG(index) {
+  finishG(index) {//פונקציה זו מסירה שחקן מהרשימה של השחקנים במשחק על פי האינדקס שקיבלה
     const listPlayer = [...this.state.listPlayer];
     listPlayer.splice(index, 1);
     this.setState({ listPlayer });

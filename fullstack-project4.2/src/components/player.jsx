@@ -7,7 +7,7 @@ class Player extends Component {
     super(props);
         // הגדרת המצבים של השחקן בכל רגע נתון במשחק
         this.state = {
-          pid: this.props.index,
+          pid: this.props.index,// מזהה ייחודי לכל שחקן
           number: this.getRandomNumber(),
           steps: 0,
           score: [],
@@ -20,6 +20,64 @@ class Player extends Component {
       // פונקציה שמחזירה מספר רנדומלי בין 1 ל-99
       getRandomNumber = () => {
         return Math.floor(Math.random() * (99)) + 1;
+      };
+      again(){//  מאפסת את המספר והשלבים ומכינה למשחק חדש
+        this.setState({number: this.getRandomNumber()});
+        this.setState({steps: 0});
+        this.setState({finish: false});
+        this.setState({startGa: false});
+        this.setState({message: ""});
+         
+      }
+      fin=()=>{// finishG מסיימת את המשחק ומפעילה את הפונקציה 
+        this.props.finishG(this.state.pid);
+      }
+      
+      changeNum = (s) => {//  משנה את המספר בהתאם לכפתור שנלחץ ובודקת האם זה תור השחקן לפני שמשנה את המספר
+        if (this.state.pid !== this.props.currentTurn) {
+          alert("המתן לתורך");
+          return;
+        }
+        
+        let temp = this.state.number;
+        let count = this.state.steps;
+        
+    
+        switch(s){// משנה את המספר לפי הכפתור שנלחץ
+          case "-1":
+            temp = temp - 1;
+            break;
+          case "+1":
+            temp = temp + 1;
+            break;
+          case "*2":
+            temp = temp * 2;
+            break;
+          case "/2":
+            temp = temp / 2;
+            break;
+          default:
+            break;
+        }
+        temp = Math.floor(temp);
+        this.setState({number: temp});
+        this.setState({steps: count+1});
+        this.checkForWin(temp, this.props.name);
+        this.props.goToNext();// מעביר לתור השחקן הבא
+      };
+    
+      checkForWin = (num, playerName) =>{// בודקת האם המספר החדש של השחקן הוא 100 ואם כן, מפעילה פעולות של סיום המשחק
+        if(num === 100) {
+          this.setState({message:(`${playerName} כל הכבוד! ניצחת`)});
+          let s= [...this.state.score, this.state.steps+1];//המערך החדש של הניצחונות
+          let temp= s.length;// אורך המערך שווה למספר הניצחונות של השחקן
+          this.props.numOfWin(temp, this.props.name);//נקרא לפונקציה עם מס הניצחונות שלי שבודקת אם נכנסתי לשיאים
+          this.setState({score: s});
+          this.setState({finish: true});
+          this.setState({startGa: true});
+          
+          
+        }
       };
     
       // פונקציה שמשמשת לטובת הצגת השחקן בדף המשחק
@@ -50,64 +108,7 @@ class Player extends Component {
           </React.Fragment>
         );
       }
-  again(){
-    this.setState({number: this.getRandomNumber()});
-    this.setState({steps: 0});
-    this.setState({finish: false});
-    this.setState({startGa: false});
-    this.setState({message: ""});
-     
-  }
-  fin=()=>{
-    this.props.finishG(this.state.pid);
-  }
   
-  changeNum = (s) => {
-    if (this.state.pid !== this.props.currentTurn) {
-      alert("המתן לתורך");
-      return;
-    }
-    
-    let temp = this.state.number;
-    let count = this.state.steps;
-    
-
-    switch(s){
-      case "-1":
-        temp = temp - 1;
-        break;
-      case "+1":
-        temp = temp + 1;
-        break;
-      case "*2":
-        temp = temp * 2;
-        break;
-      case "/2":
-        temp = temp / 2;
-        break;
-      default:
-        break;
-    }
-    temp = Math.floor(temp);
-    this.setState({number: temp});
-    this.setState({steps: count+1});
-    this.checkForWin(temp, this.props.name);
-    this.props.goToNext();
-  };
-
-  checkForWin = (num, playerName) =>{
-    if(num === 100) {
-      this.setState({message:(`${playerName} כל הכבוד! ניצחת`)});
-      let s= [...this.state.score, this.state.steps+1];//המערך החדש של הניצחונות
-      let temp= s.length;// אורך המערך שווה למספר הניצחונות של השחקן
-      this.props.numOfWin(temp, this.props.name);//נקרא לפונקציה עם מס הניצחונות שלי שבודקת אם נכנסתי לשיאים
-      this.setState({score: s});
-      this.setState({finish: true});
-      this.setState({startGa: true});
-      
-      
-    }
-  };
 }
 
 export default Player;
