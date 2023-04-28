@@ -96,10 +96,11 @@ export class KeyBoard extends Component {
       "/",
       "@",
     ],
-    textBeforChange: "",
-    text: "שלום,",
+    listText: [], //  arrat of objects with the properties: char, size, color, isBold , font
     sizeText: "14px",
     colorText: "black",
+    weightsFont: "normal",
+    familyFont: `"Times New Roman", Times, serif`,
     isHebLettersVisible: true,
     isEngUpperVisible: false,
     isEngLowerVisible: false,
@@ -108,20 +109,28 @@ export class KeyBoard extends Component {
   render() {
     return (
       <React.Fragment>
-        <div>
-          <p
-            dir="rtl"
-            style={{
-              display: "center",
-              marginTop: "50px",
-              textAlign: "center",
-              borderBottom: "5px solid red",
-              fontSize: this.state.sizeText,
-              color: this.state.colorText,
-            }}
-          >
-            {this.state.text}
-          </p>
+        <div
+          style={{
+            display: "center",
+            marginTop: "50px",
+            textAlign: "center",
+            borderBottom: "5px solid red",
+          }}
+        >
+          {this.state.listText.map((item, index) => (
+            <span
+              key={index}
+              dir="rtl"
+              style={{
+                fontSize: item.size,
+                color: item.color,
+                fontWeight: item.isBold,
+                fontFamily: item.font,
+              }}
+            >
+              {item.char}
+            </span>
+          ))}
         </div>
         <p>keyboard:</p>
         {/* Hebrew keyboard */}
@@ -194,10 +203,10 @@ export class KeyBoard extends Component {
         <button
           type="button"
           onClick={() => {
-            this.addToTextItem("Delate Text");
+            this.addToTextItem("Delate");
           }}
         >
-          Delate Text
+          Delate Last
         </button>
         <br></br>
         {/* Change Lanuage */}
@@ -270,6 +279,31 @@ export class KeyBoard extends Component {
         </button>
         {/* Change text color */}
         <p> Color of the text: </p>
+        <select
+          name="colorT"
+          id="colorT"
+          onChange={(event) => this.changeTextColor(event)}
+        >
+          <option value="" selected disabled>
+            ---- Choose a text color ----
+          </option>
+          <option value="Black" style={{ color: "Black" }}>
+            Black
+          </option>
+          <option value="Red" style={{ color: "Red" }}>
+            Red
+          </option>
+          <option value="Green" style={{ color: "Green" }}>
+            Green
+          </option>
+          <option value="Blue" style={{ color: "Blue" }}>
+            Green
+          </option>
+          <option value="Pink" style={{ color: "Pink" }}>
+            Green
+          </option>
+        </select>
+        {/* 
         <button
           type="button"
           onClick={() => {
@@ -314,14 +348,91 @@ export class KeyBoard extends Component {
           style={{ color: "Pink" }}
         >
           Pink
+        </button> */}
+        <button
+          type="button"
+          onClick={() => {
+            this.addToTextItem("Bold");
+          }}
+          style={{ color: "Black", fontWeight: "bold" }}
+        >
+          Bold
         </button>
+        <button
+          type="button"
+          onClick={() => {
+            this.addToTextItem("normal");
+          }}
+          style={{ color: "Black" }}
+        >
+          normal
+        </button>
+        {/* Special buttons */}
+        <p> Special: </p>
+        <button
+          type="button"
+          onClick={() => {
+            this.addToTextItem("Clear all");
+          }}
+        >
+          Clear all
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            this.addToTextItem("Upper all");
+          }}
+        >
+          Upper all
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            this.addToTextItem("Lower all");
+          }}
+        >
+          Lower all
+        </button>
+        <label htmlFor="font">Choose a font:</label>
+        <select
+          name="font"
+          id="font"
+          onChange={(event) => this.changeTextFont(event)}
+        >
+          <option value="" selected disabled>
+            ---- Choose a font ----
+          </option>
+          <option value="1">"Times New Roman", Times, serif</option>
+          <option value="2">Arial, Helvetica, sans-serif</option>
+          <option value="3">"Lucida Console", "Courier New", monospace</option>
+        </select>
       </React.Fragment>
     );
   }
 
+  //
+  changeTextFont = (event) => {
+    switch (event.target.value) {
+      case "1": //make the charcter bold
+        this.setState({ fontFamily: `"Times New Roman", Times, serif` });
+        break;
+      case "2": //make the charcter unbolded
+        this.setState({ fontFamily: `Arial, Helvetica, sans-serif` });
+        break;
+      case "3": //make the charcter unbolded
+        this.setState({
+          fontFamily: `"Lucida Console", "Courier New", monospace`,
+        });
+        break;
+      default: //color changing
+        this.setState({ fontFamily: `"Times New Roman", Times, serif` });
+        break;
+    }
+  };
+
   // the function changing for the requesetd color
-  changeTextColor = (requesetdColor) => {
-    this.setState({ colorText: requesetdColor });
+  changeTextColor = (event) => {
+    this.setState({ colorText: event.target.value });
   };
 
   // the function changing for the requesetd language
@@ -358,18 +469,54 @@ export class KeyBoard extends Component {
 
   // the function add the press char into text
   addToTextItem = (someAction) => {
+    let listT;
     switch (someAction) {
-      case "Undo Last":
-        this.setState({ text: this.state.textBeforChange });
+      case "Undo Last": // return to default settings
+        listT = [...this.state.listText];
+        listT[listT.length - 1].size = "14px"; // sizeText= "14px"
+        listT[listT.length - 1].color = "black"; // colorText= "black"
+        listT[listT.length - 1].isBold = "normal";
+        listT[listT.length - 1].font = `"Times New Roman", Times, serif`;
+        this.setState({ listText: listT });
         break;
-      case "Delate Text":
-        this.setState({ textBeforChange: "" });
-        this.setState({ text: "" });
+      case "Delate": // delete the last charcacter
+        listT = [...this.state.listText];
+        listT.pop();
+        this.setState({ listText: listT });
+        break;
+      case "Clear all": // delete all the text
+        this.setState({ listText: [{}] });
+        break;
+      case "Upper all": // Upper all the text
+        listT = this.state.listText;
+        for (let i = 0; i < listT.length; i++) {
+          listT[i].char = listT[i].char.toUpperCase();
+        }
+        this.setState({ listText: listT });
+        break;
+      case "Lower all": // Lower all the text
+        listT = this.state.listText;
+        for (let i = 0; i < listT.length; i++) {
+          listT[i].char = listT[i].char.toLowerCase();
+        }
+        this.setState({ listText: listT });
+        break;
+      case "Bold": //make the charcter bold
+        this.setState({ weightsFont: someAction });
+        break;
+      case "normal": //make the charcter unbolded
+        this.setState({ weightsFont: someAction });
         break;
       default: // a letter or space to add
-        this.setState({ textBeforChange: this.state.text });
-        let tempText = this.state.text + someAction;
-        this.setState({ text: tempText });
+        listT = [...this.state.listText];
+        listT.push({
+          char: someAction,
+          size: this.state.sizeText,
+          color: this.state.colorText,
+          isBold: this.state.weightsFont,
+          font: this.state.fontFamily,
+        });
+        this.setState({ listText: listT });
         break;
     }
   };
