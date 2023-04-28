@@ -1,0 +1,59 @@
+button {
+    background-color: #6cc36e; /* צבע רקע */
+    border: none;
+    color: white; /* צבע טקסט */
+    padding: 10px 24px; /* רווח פנים */
+    text-align: center; /* מירכוז טקסט */
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 4px;
+    font-family:system-ui;
+  }
+  button:hover{
+    color: white;
+    background-color: #081208;
+  }
+  
+  p {
+    font-size: 18px;
+    margin: 10px 0;
+    font-family:system-ui;
+  }
+  React.Fragment{
+    align-items: center;
+    text-align: center; /* מירכוז טקסט */
+    
+  }
+  .player{
+    align-items: center;
+    text-align: center; /* מירכוז טקסט */
+    border:3px  solid #6cc36e;
+    border-radius: 4px;
+    
+    padding:auto;
+    margin: auto;
+  }
+  div{
+    align-items: center;
+    text-align: center; /* מירכוז טקסט */
+    
+    border-radius: 4px;
+    
+    padding:auto;
+    margin: auto;
+  }
+  .TableOFRecord{
+    font-size: 22px;
+    font-weight: bold;
+    color: #6cc36e;
+
+  }
+  .turn{
+    font-weight: bold;
+    color: #6cc36e;
+     
+  }
