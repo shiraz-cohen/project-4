@@ -1,17 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-//import Counter from './components/counter';
-import App from './App'
-//import  { OurEditor } from './components/OurEditor'
-import { KeyBoard } from './components/KeyBoard'
+import App from './App' ;
+import { OurEditor } from './components/OurEditor' ;
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-  {/*   <Counter/>  */}
-{/*     <App />  */}
-    <KeyBoard />
+    <OurEditor/>
   </React.StrictMode>
 );
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./keyBoard.css";
+import "./ourEditor.css";
 
-export class KeyBoard extends Component {
+export class OurEditor extends Component {
   state = {
     numbers: [
       "~",
@@ -129,10 +129,10 @@ export class KeyBoard extends Component {
     directionOfText: "rtl",
     sizeText: "14px",
     colorText: "black",
-    weightsFont: "normal",
+    weightsFont: "normal", // fontWeight is for the Bold mode
     familyFont: `"Times New Roman", Times, serif`,
-    styleFont: "normal",
-    decorationText: "none",
+    styleFont: "normal", // fontStyle is for the italic mode
+    decorationText: "none", // textDecoration is for the under and through line mode
     isHebLettersVisible: true,
     isEngUpperVisible: false,
     isEngLowerVisible: false,
@@ -448,18 +448,18 @@ export class KeyBoard extends Component {
   changeTextFont = (event) => {
     switch (event.target.value) {
       case "1": //make the charcter bold
-        this.setState({ fontFamily: `"Times New Roman", Times, serif` });
+        this.setState({ familyFont: `"Times New Roman", Times, serif` });
         break;
       case "2": //make the charcter unbolded
-        this.setState({ fontFamily: `Arial, Helvetica, sans-serif` });
+        this.setState({ familyFont: `Arial, Helvetica, sans-serif` });
         break;
       case "3": //make the charcter unbolded
         this.setState({
-          fontFamily: `"Lucida Console", "Courier New", monospace`,
+          familyFont: `"Lucida Console", "Courier New", monospace`,
         });
         break;
       default:
-        this.setState({ fontFamily: `"Times New Roman", Times, serif` });
+        this.setState({ familyFont: `"Times New Roman", Times, serif` });
         break;
     }
   };
@@ -514,8 +514,8 @@ export class KeyBoard extends Component {
         listT[listT.length - 1].color = "black"; // colorText= "black"
         listT[listT.length - 1].isBold = "normal";
         listT[listT.length - 1].fontF = `"Times New Roman", Times, serif`;
-        listT[listT.length - 1].fontS = "normal";
-        listT[listT.length - 1].decorationTe = "none";
+        listT[listT.length - 1].fontS = "normal"; // fontStyle is for the italic mode
+        listT[listT.length - 1].decorationTe = "none"; // textDecoration is for the under and through line mode
         this.setState({ listText: listT });
         break;
       case "Delate": // delete the last charcacter
@@ -544,7 +544,7 @@ export class KeyBoard extends Component {
         this.setState({ weightsFont: someAction });
         break;
       case "italic": //make the charcter bold
-        this.setState({ fontStyle: someAction });
+        this.setState({ styleFont: someAction });
         break;
       case "underline": //make the charcter with an under line
         if (this.state.decorationText.includes("line-through")) {
@@ -565,9 +565,9 @@ export class KeyBoard extends Component {
         this.setState({ decorationText: decAndColor });
         break;
       case "normal": //make the charcter unbolded
-        this.setState({ weightsFont: someAction });
-        this.setState({ fontStyle: someAction });
-        this.setState({ decorationText: someAction });
+        this.setState({ weightsFont: someAction }); // fontWeight is for the Bold mode
+        this.setState({ styleFont: someAction }); // fontStyle is for the italic mode
+        this.setState({ decorationText: someAction }); // textDecoration is for the under and through line mode
         break;
       default: // a letter or space to add
         listT = [...this.state.listText];
@@ -575,9 +575,9 @@ export class KeyBoard extends Component {
           char: someAction,
           size: this.state.sizeText,
           color: this.state.colorText,
-          isBold: this.state.weightsFont,
-          fontF: this.state.fontFamily,
-          fontS: this.state.fontStyle,
+          isBold: this.state.weightsFont, // fontWeight is for the Bold mode
+          fontF: this.state.familyFont,
+          fontS: this.state.styleFont, // fontStyle is for the italic mode
           decorationTe: this.state.decorationText,
         });
         this.setState({ listText: listT });
