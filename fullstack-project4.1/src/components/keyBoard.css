@@ -1,0 +1,137 @@
+#text-place{
+  text-align: center;
+  margin-top: 10px;
+}
+#line-border{
+  width: 100%;
+  margin-top: 50px;
+  text-align: center;
+  border-bottom: 7px solid #d0a350;
+}
+/* Set up basic styles for the button */
+.keyboard-button{
+  margin: 0px 150px ;
+}
+#numbers-button{
+  margin: 35px 0px 0px 300px ;
+}
+.keyboard-button button{
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+  user-select: none;
+  width: 40px;
+  height: 40px;
+  background-color: #fff;
+  color: #333;
+}
+/* Add a hover effect to the button */
+.keyboard-button button:hover {
+  background-color: #d9d9d9;
+}
+
+/* Add a press effect to the button */
+.keyboard-button button:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+#space {
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px 5px 25px 420px;
+  padding: 10px;
+  text-align: center;
+  user-select: none;
+  width: 320px;
+  height: 40px;
+  color: #333;
+}
+#space:hover {
+  background-color: #d9d9d9;
+}
+
+/* Add a press effect to the button */
+#space:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+#undoAndDelate{
+  display: inline-block;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  margin: 5px;
+  padding: 10px;
+  text-align: center;
+  user-select: none;
+  width: 120px;
+  height: 40px;
+  color: #333;
+}
+#undoAndDelate:hover {
+  background-color: #d9d9d9;
+}
+
+/* Add a press effect to the button */
+#undoAndDelate:active {
+  box-shadow: none;
+  transform: translateY(2px);
+}
+button {
+  background-color: #FFE5B4; /* Set background color to a light orange shade */
+  color: #FFA500; /* Set font color to bright orange */
+  border: 2px solid #FFA500; /* Add a 2px solid border in bright orange */
+  border-radius: 4px; /* Add rounded corners */
+  padding: 12px 24px; /* Add some padding to the button */
+  font-size: 12px; /* Set font size */
+  font-weight: bold; /* Set font weight to bold */
+  margin: 2px;
+  box-shadow: 0 2px 4px rgba(111, 63, 30, 0.57); /* Add a subtle shadow effect */
+}
+
+button:hover {
+  background-color: #FFA500; /* Set hover background color to bright orange */
+  color: #FFFFFF; /* Set font color to white on hover */
+  cursor: pointer; /* Change cursor to pointer on hover */
+}
+select {
+  background-color: #FFFFFF; /* Set background color to white */
+  color: #333333; /* Set font color to dark gray */
+  border: 2px solid #CCCCCC; /* Add a 2px solid border in light gray */
+  border-radius: 4px; /* Add rounded corners */
+  padding: 8px 16px; /* Add some padding to the select tag */
+  font-size: 16px; /* Set font size */
+}
+
+select:hover, select:focus {
+  outline: none; /* Remove the default focus outline */
+  border-color: #FFA500; /* Change border color to bright orange on hover or focus */
+}
+
+select option {
+  background-color: #FFFFFF; /* Set background color to white */
+  color: #333333; /* Set font color to dark gray */
+  font-size: 16px; /* Set font size */
+}
+
+#font{
+  margin-left: 10px;
+}
