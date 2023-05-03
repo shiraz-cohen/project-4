@@ -1,142 +1,33 @@
 import React, { Component } from "react";
 import "./ourEditor.css";
+import NumbersKeyBoard from "./NumbersKeyBoard.jsx";
+import HebKeyBoard from "./HebKeyBoard.jsx";
+import EngLowerKeyBoard from "./EngLowerKeyBoard.jsx";
+import EngUpperKeyBoard from "./EngUpperKeyBoard.jsx";
 
 export class OurEditor extends Component {
-  state = {
-    numbers: [
-      "~",
-      "`",
-      "1",
-      "2",
-      "3",
-      "4",
-      "5",
-      "6",
-      "7",
-      "8",
-      "9",
-      "0",
-      "-",
-      "=",
-    ],
-    hebrewLetters: [
-      "א",
-      "ב",
-      "ג",
-      "ד",
-      "ה",
-      "ו",
-      "ז",
-      "ח",
-      "ט",
-      "י",
-      "כ",
-      "ל",
-      "מ",
-      "נ",
-      "ס",
-      "ע",
-      "פ",
-      "צ",
-      "ק",
-      "ר",
-      "ש",
-      "ת",
-      "ך",
-      "ם",
-      "ן",
-      "ץ",
-      "ף",
-      ",",
-      ".",
-      "/",
-      "@",
-      `"`,
-      "?",
-      "!",
-    ],
-    englishLettersUpper: [
-      "A",
-      "B",
-      "C",
-      "D",
-      "E",
-      "F",
-      "G",
-      "H",
-      "I",
-      "J",
-      "K",
-      "L",
-      "M",
-      "N",
-      "O",
-      "P",
-      "Q",
-      "R",
-      "S",
-      "T",
-      "U",
-      "V",
-      "W",
-      "X",
-      "Y",
-      "Z",
-      ",",
-      ".",
-      "/",
-      "@",
-      `"`,
-      "?",
-      "!",
-    ],
-    englishLettersLower: [
-      "a",
-      "b",
-      "c",
-      "d",
-      "e",
-      "f",
-      "g",
-      "h",
-      "i",
-      "j",
-      "k",
-      "l",
-      "m",
-      "n",
-      "o",
-      "p",
-      "q",
-      "r",
-      "s",
-      "t",
-      "u",
-      "v",
-      "w",
-      "x",
-      "y",
-      "z",
-      ",",
-      ".",
-      "/",
-      "@",
-      `"`,
-      "?",
-      "!",
-    ],
-    listText: [], //  array of objects with the properties: char, size, color, isBold , fontF , fontS , decorationTe
-    directionOfText: "rtl",
-    sizeText: "14px",
-    colorText: "black",
-    weightsFont: "normal", // fontWeight is for the Bold mode
-    familyFont: `"Times New Roman", Times, serif`,
-    styleFont: "normal", // fontStyle is for the italic mode
-    decorationText: "none", // textDecoration is for the under and through line mode
-    isHebLettersVisible: true,
-    isEngUpperVisible: false,
-    isEngLowerVisible: false,
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      listText: [], //  array of objects with the properties: char, size, color, isBold , fontF , fontS , decorationTe
+      directionOfText: "rtl",
+      sizeText: "14px",
+      colorText: "black",
+      weightsFont: "normal", // fontWeight is for the Bold mode
+      familyFont: `"Times New Roman", Times, serif`,
+      styleFont: "normal", // fontStyle is for the italic mode
+      decorationText: "none", // textDecoration is for the under and through line mode
+      isHebLettersVisible: true,
+      isEngUpperVisible: false,
+      isEngLowerVisible: false,
+    };
+
+    this.changeTextFont = this.changeTextFont.bind(this); //  the function changing for the requesetd *font* for the next text that will be writte
+    this.changeTextColor = this.changeTextColor.bind(this); // the function changing for the requesetd *color* for the next text that will be written
+    this.changeFontSize = this.changeFontSize.bind(this); // the function changing for the requesetd font *size* for the next text that will be written
+    this.toggleButton = this.toggleButton.bind(this); // the function switching for the requesetd language
+    this.addToTextItem = this.addToTextItem.bind(this); // the function add the press char into text
+  }
 
   render() {
     return (
@@ -168,7 +59,7 @@ export class OurEditor extends Component {
         </div>
         {/* line border to the text */}
         <hr id="line-border"></hr>
-        {/*<label htmlFor="font">Choose a font:</label> */}
+        {/* select the font of the text */}
         <select
           name="font"
           id="font"
@@ -249,8 +140,7 @@ export class OurEditor extends Component {
         >
           normal
         </button>
-        {/* Change font size*/}
-        {/*<p> Font size: </p>*/}
+        {/* Change font size of the text*/}
         <select
           name="sizeT"
           id="sizeT"
@@ -267,7 +157,6 @@ export class OurEditor extends Component {
           <option value="36">36</option>
         </select>
         {/* Change text color */}
-        {/*<p> Color of the text: </p> */}
         <select
           name="colorT"
           id="colorT"
@@ -293,7 +182,6 @@ export class OurEditor extends Component {
           </option>
         </select>
         {/* Special buttons */}
-        {/*<p> Special: </p> */}
         <button
           type="button"
           onClick={() => {
@@ -318,70 +206,27 @@ export class OurEditor extends Component {
         >
           Lower all
         </button>
-        {/* END OF redesign place in the page*/}
-        {/* <p>keyboard:</p> */}
-        {/* Numbers keyBord */}
-        <div className="keyboard-button" id="numbers-button">
-          {this.state.numbers.map((v, i) => (
-            <button
-              type="button"
-              key={`${i}-numbers-keyboard`}
-              className="..."
-              onClick={() => {
-                this.addToTextItem(v);
-              }}
-            >
-              {v}
-            </button>
-          ))}
+        {/* Numbers keyBoard */}
+        <div className="...">
+          <NumbersKeyBoard addToTextItem={this.addToTextItem} />
         </div>
         {/* Hebrew keyboard */}
-        <div className="keyboard-button" dir="rtl">
-          {this.state.isHebLettersVisible &&
-            this.state.hebrewLetters.map((v, i) => (
-              <button
-                type="button"
-                key={`${i}-hebrew-keyboard`}
-                className="..."
-                onClick={() => {
-                  this.addToTextItem(v);
-                }}
-              >
-                {v}
-              </button>
-            ))}
+        <div className="...">
+          {this.state.isHebLettersVisible && (
+            <HebKeyBoard addToTextItem={this.addToTextItem} />
+          )}
         </div>
         {/* English Lower Letters keyboard */}
-        <div className="keyboard-button">
-          {this.state.isEngLowerVisible &&
-            this.state.englishLettersLower.map((v, i) => (
-              <button
-                type="button"
-                key={`${i}-EngLower-keyboard`}
-                className="..."
-                onClick={() => {
-                  this.addToTextItem(v);
-                }}
-              >
-                {v}
-              </button>
-            ))}
+        <div className="...">
+          {this.state.isEngLowerVisible && (
+            <EngLowerKeyBoard addToTextItem={this.addToTextItem} />
+          )}
         </div>
-        {/* English Uper Letters keyboard */}
-        <div className="keyboard-button">
-          {this.state.isEngUpperVisible &&
-            this.state.englishLettersUpper.map((v, i) => (
-              <button
-                type="button"
-                key={`${i}-EngUpper-keyboard`}
-                className="..."
-                onClick={() => {
-                  this.addToTextItem(v);
-                }}
-              >
-                {v}
-              </button>
-            ))}
+        {/* English Upper Letters keyboard */}
+        <div className="...">
+          {this.state.isEngUpperVisible && (
+            <EngUpperKeyBoard addToTextItem={this.addToTextItem} />
+          )}
         </div>
         {/* SPACE button */}
         <button
@@ -415,7 +260,6 @@ export class OurEditor extends Component {
         </button>
         <br></br>
         {/* Change Lanuage */}
-        {/*<p>Lanuage:</p> */}
         <button
           type="button"
           onClick={() => {
