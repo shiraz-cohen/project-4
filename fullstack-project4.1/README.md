@@ -1,6 +1,6 @@
 # Virtual Keyboard - React Project
 
-A complete virtual keyboard simulator built with React, allowing users to type in Hebrew and English with rich text customization options.
+A fully interactive virtual keyboard simulator built with React, enabling users to type seamlessly in both **Hebrew** and **English** while enjoying rich text customization features.
 
 👉 [Live Demo](https://shiraz-cohen.github.io/project-4/fullstack-project4.1)
 
@@ -8,24 +8,24 @@ A complete virtual keyboard simulator built with React, allowing users to type i
 
 ## 🎯 Features
 
-- Typing in **Hebrew** and **English**
-- Select **font type**, **font size**
-- Apply **bold**, **italic**, **underline**
-- **Delete** text and **undo last action**
-- Convert text to **uppercase/lowercase**
-- Full simulation of physical keyboard behavior
+- Type naturally in **Hebrew** and **English** languages  
+- Customize text with selectable **font types** and **font sizes**  
+- Apply text styles: **bold**, **italic**, and **underline**  
+- Delete text and **undo** the last action with ease  
+- Convert text between **uppercase** and **lowercase**  
+- Realistic simulation of a physical keyboard experience  
 
 ---
 
 ## 🛠️ Technologies Used
 
-- React
-- JSX
-- HTML5
-- CSS3
+- React  
+- JSX  
+- HTML5  
+- CSS3  
 
 ---
 
 ## ✅ Status
 
-Project completed and available online.
+Project completed and fully available online.
